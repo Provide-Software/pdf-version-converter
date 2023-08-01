@@ -22,7 +22,7 @@ class RegexGuesser implements GuesserInterface
     /**
      * {@inheritdoc }
      */
-    public function guess($file)
+    public function guess(string|resouce $file)
     {
         $version = $this->guessVersion($file);
 
@@ -35,12 +35,16 @@ class RegexGuesser implements GuesserInterface
     /**
      * This implementation is not the best, but doesn't require external modules or libs. For now, works fine for me.
      * Inspired by Sameer Borate's snippet http://www.codediesel.com/php/read-the-version-of-a-pdf-in-php/
-     * @param $filename
+     * @param $file
      * @return string|null
      */
-    protected function guessVersion($filename)
+    protected function guessVersion(string|resouce $file)
     {
-        $fp = @fopen($filename, 'rb');
+        if (is_resource($file)) {
+            $fp = $file;
+        } else {
+            $fp = @fopen($file, 'rb');
+        }
 
         if (!$fp) {
             return 0;
