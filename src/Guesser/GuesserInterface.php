@@ -24,5 +24,5 @@ interface GuesserInterface
      * @return string version (1.4, 1.5, 1.6) or null.
      * @throws \RuntimeException if version can't be guessed.
      */
-    public function guess($file);
+    public function guess(string|resource $file);
 }
